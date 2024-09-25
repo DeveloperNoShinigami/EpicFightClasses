@@ -1,0 +1,52 @@
+{
+  "loader": "forge:separate_transforms",
+  "base":
+  {
+    "loader": "forge:obj",
+    "model": "epicfightclasses:models/item/obj/amon.obj",
+    "flip-v": true,
+    "display":
+    {
+      "thirdperson_righthand":
+      {
+        "translation": [-24, 23, 26],
+        "rotation": [-90,0, 180],
+        "scale": [3.0, 3.0, 3.0]
+      },
+      "firstperson_righthand":
+      {
+        "translation": [13,-6,-0],
+        "rotation": [90, 0, -0],
+        "scale": [3.0, 3.0, 3.0]
+      }
+    }
+  },
+  "perspectives":
+  {
+    "ground":
+    {
+      "parent": "item/generated",
+      "textures":
+      {
+        "layer0": "epicfightclasses:item/amon"
+      }
+    },
+    "gui":
+    {
+      "parent": "item/generated",
+      "textures":
+      {
+        "layer0": "epicfightclasses:item/amon"
+      },
+      "gui_light": "front"
+    },
+    "fixed":
+    {
+      "parent": "item/generated",
+      "textures":
+      {
+        "layer0": "epicfightclasses:item/amon"
+      }
+    }
+  }
+}
