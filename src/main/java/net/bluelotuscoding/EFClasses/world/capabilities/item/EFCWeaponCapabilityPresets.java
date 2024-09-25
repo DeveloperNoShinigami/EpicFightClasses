@@ -27,6 +27,7 @@ import java.util.function.Function;
 public class EFCWeaponCapabilityPresets {
 
 
+    //Preset Below for Mage
     public static final Function<Item, CapabilityItem.Builder> OATH_TAKER = (item) -> {
         CapabilityItem.Builder builder = WeaponCapability.builder().category(EFCWeaponCategories.OATH_TAKER).styleProvider((entitypatch) -> {
             return CapabilityItem.Styles.ONE_HAND;

@@ -4,6 +4,8 @@ import net.bluelotuscoding.EFClasses.gameasset.EFCAnimations;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import yesman.epicfight.skill.Skill;
 import yesman.epicfight.skill.SkillContainer;
 import yesman.epicfight.skill.weaponinnate.WeaponInnateSkill;
@@ -25,11 +27,11 @@ public class HinotamaBurstSpell extends WeaponInnateSkill {
 
     public void onInitiate(SkillContainer container) {
         if (!container.getExecuter().isLogicalClient()) {
-            this.setConsumption(container, 6.0F);
-            this.setConsumptionSynchronize((ServerPlayerPatch)container.getExecuter(), 6.0F);
+            this.setConsumption(container, 10.0F);
+            this.setConsumptionSynchronize((ServerPlayerPatch)container.getExecuter(), 10.0F);
         }
 
-        container.setResource(6.0F);
+        container.setResource(10.0F);
     }
 
     public void executeOnServer(ServerPlayerPatch playerPatch, FriendlyByteBuf args) {
@@ -41,28 +43,30 @@ public class HinotamaBurstSpell extends WeaponInnateSkill {
     public void onRemoved(SkillContainer container) {
         super.onRemoved(container);
 
-        container.getExecuter().getEventListener().removeListener(PlayerEventListener.EventType.DEALT_DAMAGE_EVENT_HURT, EVENT_UUID);
+        container.getExecuter().getEventListener().removeListener(PlayerEventListener.EventType.DEALT_DAMAGE_EVENT_DAMAGE, EVENT_UUID);
 
     }
 
+    @OnlyIn(Dist.CLIENT)
+    @Override
     public List<Component> getTooltipOnItem(ItemStack itemStack, CapabilityItem cap, PlayerPatch<?> playerCap) {
         List<Component> list = super.getTooltipOnItem(itemStack, cap, playerCap);
         this.generateTooltipforPhase(list, itemStack, cap, playerCap, (Map)this.properties.get(0), "Each Strike:");
         return list;
     }
 
-    @Override
+
     public WeaponInnateSkill registerPropertiesToAnimation() {
         return this;
     }
 
     public void updateContainer(SkillContainer container) {
         if (!container.getExecuter().isLogicalClient()) {
-            this.setConsumption(container, 6.0F);
-            this.setConsumptionSynchronize((ServerPlayerPatch)container.getExecuter(), 6.0F);
+            this.setConsumption(container, 10.0F);
+            this.setConsumptionSynchronize((ServerPlayerPatch)container.getExecuter(), 10.0F);
         }
 
-        container.setResource(6.0F);
+        container.setResource(10.0F);
         container.deactivate();
     }
 }
