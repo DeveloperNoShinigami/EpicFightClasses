@@ -5,6 +5,7 @@ import net.bluelotuscoding.EFClasses.main.EpicFightClassesMod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import yesman.epicfight.api.animation.property.AnimationProperty;
+import yesman.epicfight.api.animation.types.AttackAnimation;
 import yesman.epicfight.api.animation.types.BasicAttackAnimation;
 import yesman.epicfight.api.animation.types.StaticAnimation;
 import yesman.epicfight.api.forgeevent.AnimationRegistryEvent;
@@ -22,7 +23,7 @@ public class EFCAnimations {
 
     @SubscribeEvent
     public static void registerAnimations(AnimationRegistryEvent event) {
-        event.getRegistryMap().put(EpicFightClassesMod.MOD_ID, EFCAnimations::build);
+        event.getRegistryMap().put("epicfightclasses", EFCAnimations::build);
     }
 
     private static void build() {
@@ -41,7 +42,7 @@ public class EFCAnimations {
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.5F);
 
         // MAGE Burst Skill
-        HINOTAMA_BURST = new BasicAttackAnimation(0.2F, 0.10F, 0.15F, 0.F, null,biped.toolR, "biped/skill/mage/hinotama_burst", biped)
+        HINOTAMA_BURST = (new AttackAnimation(0.05F, 0.0F, 0.2F, 0.3F, 1.0F, null, biped.toolR, "biped/skill/mage/hinotama_burst", biped))
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.5F);
 
 
