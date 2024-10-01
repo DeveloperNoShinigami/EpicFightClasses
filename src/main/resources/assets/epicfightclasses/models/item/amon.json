@@ -4,6 +4,7 @@
   {
     "loader": "forge:obj",
     "model": "epicfightclasses:models/item/obj/amon.obj",
+    "mtl_override": "amon.mtl",
     "flip-v": true,
     "display":
     {

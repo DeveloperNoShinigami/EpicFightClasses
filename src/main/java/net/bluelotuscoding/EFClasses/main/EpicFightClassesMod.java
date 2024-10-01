@@ -2,6 +2,7 @@ package net.bluelotuscoding.EFClasses.main;
 
 import com.mojang.logging.LogUtils;
 import net.bluelotuscoding.EFClasses.gameasset.EFCAnimations;
+import net.bluelotuscoding.EFClasses.world.capabilities.item.EFCWeaponCapabilityPresets;
 import net.bluelotuscoding.EFClasses.world.item.EFCItems;
 import net.bluelotuscoding.EFClasses.world.tabs.EFCTabs;
 import net.minecraftforge.api.distmarker.Dist;
@@ -29,13 +30,15 @@ public class EpicFightClassesMod
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-
         //Classes we are adding in the mod
         EFCItems.register(modEventBus);
         EFCTabs.register(modEventBus);
 
         //Registered the animations!
         modEventBus.addListener(EFCAnimations::registerAnimations);
+        //Registered the capabilities
+        modEventBus.addListener(EFCWeaponCapabilityPresets::register);
+
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
         // Register the item to a creative tab

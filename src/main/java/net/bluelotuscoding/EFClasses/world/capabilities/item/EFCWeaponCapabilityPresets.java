@@ -26,10 +26,28 @@ import java.util.function.Function;
 @Mod.EventBusSubscriber(modid = EpicFightClassesMod.MOD_ID , bus = Mod.EventBusSubscriber.Bus.MOD)
 public class EFCWeaponCapabilityPresets {
 
-
     //Preset Below for Mage
     public static final Function<Item, CapabilityItem.Builder> OATH_TAKER = (item) -> {
-        CapabilityItem.Builder builder = WeaponCapability.builder().category(EFCWeaponCategories.OATH_TAKER).styleProvider((entitypatch) -> {
+        CapabilityItem.Builder builder = WeaponCapability.builder()
+                .category(EFCWeaponCategories.OATH_TAKER)
+                .hitSound(EpicFightSounds.BLADE_HIT.get())
+                .collider(EFCColliders.OATH_TAKER)
+                .newStyleCombo(CapabilityItem.Styles.ONE_HAND, EFCAnimations.OATH_TAKER_BASIC_ATTACK_01, EFCAnimations.OATH_TAKER_BASIC_ATTACK_02, EFCAnimations.OATH_TAKER_BASIC_ATTACK_03, Animations.SWORD_DASH, Animations.SWORD_AIR_SLASH)
+                .newStyleCombo(CapabilityItem.Styles.MOUNT, Animations.SWORD_MOUNT_ATTACK)
+                .innateSkill(CapabilityItem.Styles.ONE_HAND, (itemstack) -> {
+                    return EFCSkills.HINOTAMA_BURST;
+                })
+                .livingMotionModifier(CapabilityItem.Styles.ONE_HAND, LivingMotions.IDLE, EFCAnimations.MAGE_IDLE)
+                .livingMotionModifier(CapabilityItem.Styles.ONE_HAND, LivingMotions.WALK, Animations.BIPED_HOLD_SPEAR)
+                .livingMotionModifier(CapabilityItem.Styles.ONE_HAND, LivingMotions.CHASE, Animations.VINDICATOR_CHASE)
+                .livingMotionModifier(CapabilityItem.Styles.ONE_HAND, LivingMotions.RUN, Animations.BIPED_RUN)
+                .livingMotionModifier(CapabilityItem.Styles.ONE_HAND, LivingMotions.SWIM, Animations.BIPED_HOLD_SPEAR)
+                .livingMotionModifier(CapabilityItem.Styles.ONE_HAND, LivingMotions.BLOCK, Animations.SPEAR_GUARD);
+        return builder;
+    };
+
+    /*public static final Function<Item, CapabilityItem.Builder> OATH_TAKER = (item) -> {
+        CapabilityItem.Builder builder = WeaponCapability.builder().category(EFCWeaponCategories.OATH_TAKER).styleProvider((playerpatch) -> {
             return CapabilityItem.Styles.ONE_HAND;
         })
         .collider(EFCColliders.OATH_TAKER).hitSound((SoundEvent)EpicFightSounds.BLADE_HIT.get())
@@ -47,7 +65,7 @@ public class EFCWeaponCapabilityPresets {
     .livingMotionModifier(CapabilityItem.Styles.ONE_HAND, LivingMotions.SWIM, Animations.BIPED_HOLD_SPEAR)
     .livingMotionModifier(CapabilityItem.Styles.ONE_HAND, LivingMotions.BLOCK, Animations.SPEAR_GUARD);
         return builder;
-    };
+    }; */
 
 
     @SubscribeEvent
