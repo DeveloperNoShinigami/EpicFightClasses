@@ -17,7 +17,7 @@ import yesman.epicfight.world.damagesource.*;
 import java.util.Set;
 
 
-@Mod.EventBusSubscriber(modid = EpicFightClassesMod.MOD_ID , bus = Mod.EventBusSubscriber.Bus.FORGE)
+@Mod.EventBusSubscriber(modid = EpicFightClassesMod.MOD_ID , bus = Mod.EventBusSubscriber.Bus.MOD)
 public class EFCSkills {
     // public static Skill ;
 
@@ -67,7 +67,7 @@ public class EFCSkills {
 
         //Weapon Innate Skills --------------------------------------------------------
         //Mage Basic Fire Burst Skill
-        WeaponInnateSkill hinotamaBurst =  modRegistry.build("hinotama_burst", HinotamaBurstSpell::new, SimpleWeaponInnateSkill.createSimpleWeaponInnateBuilder().setAnimations(() -> (AttackAnimation) EFCAnimations.HINOTAMA_BURST));
+        WeaponInnateSkill hinotamaBurst =  modRegistry.build("hinotama_burst", HinotamaBurstSpell::new, WeaponInnateSkill.createWeaponInnateBuilder());
         hinotamaBurst.newProperty()
                 .addProperty(AnimationProperty.AttackPhaseProperty.MAX_STRIKES_MODIFIER, ValueModifier.adder(3))
                 .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(2.0F))

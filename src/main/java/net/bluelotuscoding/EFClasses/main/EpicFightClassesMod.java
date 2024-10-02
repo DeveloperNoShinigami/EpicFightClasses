@@ -25,6 +25,7 @@ public class EpicFightClassesMod
     // Define mod id in a common place for everything to reference
     public static final String MOD_ID = "epicfightclasses";
     // Directly reference a slf4j logger
+
     private static final Logger LOGGER = LogManager.getLogger("epicfightclasses");
 
     private static EpicFightClassesMod instance;
