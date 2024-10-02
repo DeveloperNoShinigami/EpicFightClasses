@@ -42,7 +42,7 @@ public class EFCAnimations {
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.5F);
 
         // MAGE Burst Skill
-        HINOTAMA_BURST = (new AttackAnimation(0.05F, 0.0F, 0.2F, 0.3F, 1.0F, null, biped.toolR, "biped/skill/mage/hinotama_burst", biped))
+        HINOTAMA_BURST = new BasicAttackAnimation(0.2F, 0.10F, 0.15F, 0.F, null,biped.toolR, "biped/skill/mage/hinotama_burst", biped)
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.5F);
 
 

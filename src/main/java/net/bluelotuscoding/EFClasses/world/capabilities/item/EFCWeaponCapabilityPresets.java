@@ -34,9 +34,7 @@ public class EFCWeaponCapabilityPresets {
                 .collider(EFCColliders.OATH_TAKER)
                 .newStyleCombo(CapabilityItem.Styles.ONE_HAND, EFCAnimations.OATH_TAKER_BASIC_ATTACK_01, EFCAnimations.OATH_TAKER_BASIC_ATTACK_02, EFCAnimations.OATH_TAKER_BASIC_ATTACK_03, Animations.SWORD_DASH, Animations.SWORD_AIR_SLASH)
                 .newStyleCombo(CapabilityItem.Styles.MOUNT, Animations.SWORD_MOUNT_ATTACK)
-                .innateSkill(CapabilityItem.Styles.ONE_HAND, (itemstack) -> {
-                    return EFCSkills.HINOTAMA_BURST;
-                })
+                .innateSkill(CapabilityItem.Styles.ONE_HAND, (itemstack) -> EFCSkills.HINOTAMA_BURST)
                 .livingMotionModifier(CapabilityItem.Styles.ONE_HAND, LivingMotions.IDLE, EFCAnimations.MAGE_IDLE)
                 .livingMotionModifier(CapabilityItem.Styles.ONE_HAND, LivingMotions.WALK, Animations.BIPED_HOLD_SPEAR)
                 .livingMotionModifier(CapabilityItem.Styles.ONE_HAND, LivingMotions.CHASE, Animations.VINDICATOR_CHASE)
