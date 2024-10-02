@@ -16,38 +16,53 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import yesman.epicfight.api.animation.property.AnimationProperty;
 import yesman.epicfight.api.utils.math.ValueModifier;
+import yesman.epicfight.gameasset.Animations;
 import yesman.epicfight.skill.Skill;
 import yesman.epicfight.skill.SkillContainer;
+import yesman.epicfight.skill.weaponinnate.SimpleWeaponInnateSkill;
 import yesman.epicfight.skill.weaponinnate.WeaponInnateSkill;
 import yesman.epicfight.world.capabilities.entitypatch.player.PlayerPatch;
 import yesman.epicfight.world.capabilities.entitypatch.player.ServerPlayerPatch;
 import yesman.epicfight.world.capabilities.item.CapabilityItem;
+import yesman.epicfight.world.damagesource.EpicFightDamageType;
 import yesman.epicfight.world.entity.eventlistener.PlayerEventListener;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-public class HinotamaBurstSpell extends WeaponInnateSkill {
+public class HinotamaBurstSpell extends SimpleWeaponInnateSkill {
     private static final UUID EVENT_UUID = UUID.fromString("33348129-d6d4-4b24-972d-9d9df582259d");
 
-    public HinotamaBurstSpell(Skill.Builder<?> builder) {
+    public HinotamaBurstSpell(SimpleWeaponInnateSkill.Builder builder) {
         super(builder);
     }
 
+    @Override
     public void onInitiate(SkillContainer container) {
-        if (!container.getExecuter().isLogicalClient()) {
-            this.setConsumption(container, 6.0F);
-            this.setConsumptionSynchronize((ServerPlayerPatch)container.getExecuter(), 6.0F);
-        }
+        super.onInitiate(container);
 
-        container.setResource(6.0F);
+        container.getExecuter().getEventListener().addEventListener(PlayerEventListener.EventType.DEALT_DAMAGE_EVENT_HURT, EVENT_UUID, (event) -> {
+            if (event.getDamageSource().getAnimation() == EFCAnimations.HINOTAMA_BURST) {
+                ValueModifier damageModifier = ValueModifier.empty();
+                this.getProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, this.properties.get(0)).ifPresent(damageModifier::merge);
+                damageModifier.merge(ValueModifier.multiplier(0.8F));
+                float health = event.getTarget().getHealth();
+                float executionHealth = damageModifier.getTotalValue((float)event.getPlayerPatch().getOriginal().getAttributeValue(Attributes.ATTACK_DAMAGE));
+
+                if (health < executionHealth) {
+                    if (event.getDamageSource() != null) {
+                        event.getDamageSource().addRuntimeTag(EpicFightDamageType.EXECUTION);
+                    }
+                }
+            }
+        });
     }
 
-    public void executeOnServer(ServerPlayerPatch executer, FriendlyByteBuf args) {
+    @Override
+    public void onRemoved(SkillContainer container) {
+        super.onRemoved(container);
 
-            executer.playAnimationSynchronized(EFCAnimations.HINOTAMA_BURST, 0.0F);
-            super.executeOnServer(executer, args);
+        container.getExecuter().getEventListener().removeListener(PlayerEventListener.EventType.DEALT_DAMAGE_EVENT_HURT, EVENT_UUID);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -77,27 +92,6 @@ public class HinotamaBurstSpell extends WeaponInnateSkill {
         this.generateTooltipforPhase(list, itemstack, cap, playerpatch, this.properties.get(0), "Each Strike:");
 
         return list;
-    }
-
-    @Override
-    public void onRemoved(SkillContainer container) {
-        super.onRemoved(container);
-
-        container.getExecuter().getEventListener().removeListener(PlayerEventListener.EventType.DEALT_DAMAGE_EVENT_HURT, EVENT_UUID);
-    }
-
-    public WeaponInnateSkill registerPropertiesToAnimation() {
-        return this;
-    }
-
-    public void updateContainer(SkillContainer container) {
-        if (!container.getExecuter().isLogicalClient()) {
-            this.setConsumption(container, 6.0F);
-            this.setConsumptionSynchronize((ServerPlayerPatch)container.getExecuter(), 6.0F);
-        }
-
-        container.setResource(6.0F);
-        container.deactivate();
     }
 
 
