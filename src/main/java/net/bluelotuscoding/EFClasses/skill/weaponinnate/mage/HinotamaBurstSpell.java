@@ -85,7 +85,7 @@ public class HinotamaBurstSpell extends WeaponInnateSkill {
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public List<Component> getTooltipOnItem(ItemStack itemstack, CapabilityItem cap, PlayerPatch<?> playerpatch) {
+    ublic List<Component> getTooltipOnItem(ItemStack itemstack, CapabilityItem cap, PlayerPatch<?> playerpatch) {
         List<Component> list = Lists.newArrayList();
         List<Object> tooltipArgs = Lists.newArrayList();
         String traslatableText = this.getTranslationKey();
