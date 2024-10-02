@@ -5,9 +5,12 @@ import net.bluelotuscoding.EFClasses.skill.weaponinnate.mage.HinotamaBurstSpell;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import yesman.epicfight.api.animation.property.AnimationProperty;
+import yesman.epicfight.api.animation.types.AttackAnimation;
 import yesman.epicfight.api.forgeevent.SkillBuildEvent;
 import yesman.epicfight.api.utils.math.ValueModifier;
+import yesman.epicfight.gameasset.Animations;
 import yesman.epicfight.skill.Skill;
+import yesman.epicfight.skill.weaponinnate.SimpleWeaponInnateSkill;
 import yesman.epicfight.skill.weaponinnate.WeaponInnateSkill;
 import yesman.epicfight.world.damagesource.*;
 
@@ -55,7 +58,7 @@ public class EFCSkills {
 
     @SubscribeEvent
     public static void buildSkillEvent(SkillBuildEvent build) {
-        SkillBuildEvent.ModRegistryWorker modRegistry = build.createRegistryWorker("epicfightclasses");
+        SkillBuildEvent.ModRegistryWorker modRegistry = build.createRegistryWorker(EpicFightClassesMod.MOD_ID);
         // DODGES -------------------------------------------------------------------
 
 
@@ -64,7 +67,7 @@ public class EFCSkills {
 
         //Weapon Innate Skills --------------------------------------------------------
         //Mage Basic Fire Burst Skill
-        WeaponInnateSkill hinotamaBurst =  modRegistry.build("hinotama_burst", HinotamaBurstSpell::new, WeaponInnateSkill.createWeaponInnateBuilder());
+        WeaponInnateSkill hinotamaBurst =  modRegistry.build("hinotama_burst", HinotamaBurstSpell::new, SimpleWeaponInnateSkill.createSimpleWeaponInnateBuilder().setAnimations(() -> (AttackAnimation) EFCAnimations.HINOTAMA_BURST));
         hinotamaBurst.newProperty()
                 .addProperty(AnimationProperty.AttackPhaseProperty.MAX_STRIKES_MODIFIER, ValueModifier.adder(3))
                 .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(2.0F))

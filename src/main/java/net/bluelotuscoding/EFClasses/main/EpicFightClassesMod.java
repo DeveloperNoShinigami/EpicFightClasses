@@ -15,7 +15,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.slf4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(EpicFightClassesMod.MOD_ID)
@@ -24,12 +25,18 @@ public class EpicFightClassesMod
     // Define mod id in a common place for everything to reference
     public static final String MOD_ID = "epicfightclasses";
     // Directly reference a slf4j logger
-    private static final Logger LOGGER = LogUtils.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger("epicfightclasses");
+
+    private static EpicFightClassesMod instance;
+
+    public static EpicFightClassesMod getInstance() {
+        return instance;
+    }
 
     public EpicFightClassesMod()
     {
+        instance = this;
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
         //Classes we are adding in the mod
         EFCItems.register(modEventBus);
         EFCTabs.register(modEventBus);
