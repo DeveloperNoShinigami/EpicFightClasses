@@ -1,0 +1,11 @@
+{
+  "attributes":
+  {
+    "one_hand":
+    {
+      "impact":3.0,
+      "max_strikes":4
+    }
+  },
+  "type":"amon"
+}
