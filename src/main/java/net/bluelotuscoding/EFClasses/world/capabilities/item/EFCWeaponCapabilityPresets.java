@@ -32,10 +32,28 @@ public class EFCWeaponCapabilityPresets {
                 .category(EFCWeaponCategories.OATH_TAKER)
                 .hitSound(EpicFightSounds.BLADE_HIT.get())
                 .collider(EFCColliders.OATH_TAKER)
-                .newStyleCombo(CapabilityItem.Styles.ONE_HAND, EFCAnimations.OATH_TAKER_BASIC_ATTACK_01, EFCAnimations.OATH_TAKER_BASIC_ATTACK_02, EFCAnimations.OATH_TAKER_BASIC_ATTACK_03, Animations.SWORD_DASH, Animations.SWORD_AIR_SLASH)
+                .newStyleCombo(CapabilityItem.Styles.ONE_HAND, EFCAnimations.MAGE_BASIC_ATTACK_01, EFCAnimations.MAGE_BASIC_ATTACK_02, EFCAnimations.MAGE_BASIC_ATTACK_03, Animations.SWORD_DASH, Animations.SWORD_AIR_SLASH)
                 .newStyleCombo(CapabilityItem.Styles.MOUNT, Animations.SWORD_MOUNT_ATTACK)
                 .innateSkill(CapabilityItem.Styles.ONE_HAND, (itemstack) -> EFCSkills.HINOTAMA_BURST)
                 .livingMotionModifier(CapabilityItem.Styles.ONE_HAND, LivingMotions.IDLE, EFCAnimations.MAGE_IDLE)
+                .livingMotionModifier(CapabilityItem.Styles.ONE_HAND, LivingMotions.WALK, Animations.BIPED_HOLD_SPEAR)
+                .livingMotionModifier(CapabilityItem.Styles.ONE_HAND, LivingMotions.CHASE, Animations.VINDICATOR_CHASE)
+                .livingMotionModifier(CapabilityItem.Styles.ONE_HAND, LivingMotions.RUN, Animations.BIPED_RUN)
+                .livingMotionModifier(CapabilityItem.Styles.ONE_HAND, LivingMotions.SWIM, Animations.BIPED_HOLD_SPEAR)
+                .livingMotionModifier(CapabilityItem.Styles.ONE_HAND, LivingMotions.BLOCK, Animations.SPEAR_GUARD);
+        return builder;
+    };
+
+    //Preset Below for Warrior
+    public static final Function<Item, CapabilityItem.Builder> AMON = (item) -> {
+        CapabilityItem.Builder builder = WeaponCapability.builder()
+                .category(EFCWeaponCategories.AMON)
+                .hitSound(EpicFightSounds.BLADE_HIT.get())
+                .collider(EFCColliders.OATH_TAKER)
+                .newStyleCombo(CapabilityItem.Styles.ONE_HAND, EFCAnimations.CLERIC_BASIC_ATTACK_01, EFCAnimations.CLERIC_BASIC_ATTACK_02, EFCAnimations.CLERIC_BASIC_ATTACK_03, Animations.SWORD_DASH, Animations.SWORD_AIR_SLASH)
+                .newStyleCombo(CapabilityItem.Styles.MOUNT, Animations.SWORD_MOUNT_ATTACK)
+                //.innateSkill(CapabilityItem.Styles.ONE_HAND, (itemstack) -> EFCSkills)
+                .livingMotionModifier(CapabilityItem.Styles.ONE_HAND, LivingMotions.IDLE, EFCAnimations.CLERIC_IDLE)
                 .livingMotionModifier(CapabilityItem.Styles.ONE_HAND, LivingMotions.WALK, Animations.BIPED_HOLD_SPEAR)
                 .livingMotionModifier(CapabilityItem.Styles.ONE_HAND, LivingMotions.CHASE, Animations.VINDICATOR_CHASE)
                 .livingMotionModifier(CapabilityItem.Styles.ONE_HAND, LivingMotions.RUN, Animations.BIPED_RUN)
@@ -69,5 +87,6 @@ public class EFCWeaponCapabilityPresets {
     @SubscribeEvent
     public static void register(WeaponCapabilityPresetRegistryEvent event) {
         event.getTypeEntry().put(ResourceLocation.tryParse("oath_taker"), OATH_TAKER);
+        event.getTypeEntry().put(ResourceLocation.tryParse("amon"), AMON);
     }
 }
